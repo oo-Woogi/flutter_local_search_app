@@ -7,8 +7,6 @@ class Review {
 
   final String author;
 
-  final int rating;
-
   final String content;
 
   final DateTime timestamp;
@@ -17,7 +15,6 @@ class Review {
     this.id = '',
     required this.placeId,
     required this.author,
-    required this.rating,
     required this.content,
     required this.timestamp,
   });
@@ -27,7 +24,6 @@ class Review {
       id: id,
       placeId: json['placeId'] as String,
       author: json['author'] as String,
-      rating: (json['rating'] as num).toInt(),
       content: json['content'] as String,
       timestamp: (json['timestamp'] as Timestamp).toDate(),
     );
@@ -37,7 +33,6 @@ class Review {
     return {
       'placeId': placeId,
       'author': author,
-      'rating': rating,
       'content': content,
       'timestamp': Timestamp.fromDate(timestamp),
     };

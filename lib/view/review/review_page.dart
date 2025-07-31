@@ -20,7 +20,6 @@ class ReviewPage extends StatefulWidget {
 class _ReviewPageState extends State<ReviewPage> {
   final TextEditingController _authorController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
-  int _rating = 5;
 
   @override
   void dispose() {
@@ -50,12 +49,36 @@ class _ReviewPageState extends State<ReviewPage> {
                   itemCount: reviews.length,
                   itemBuilder: (context, index) {
                     final rev = reviews[index];
-                    return ListTile(
-                      title: Text('${rev.author} (${rev.rating}/5)'),
-                      subtitle: Text(rev.content),
-                      trailing: Text(
-                        "${rev.timestamp.year}.${rev.timestamp.month.toString().padLeft(2, '0')}.${rev.timestamp.day.toString().padLeft(2, '0')}",
-                        style: const TextStyle(fontSize: 12, color: Colors.grey),
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 12.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            rev.content,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.black,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            "${rev.timestamp.year}.${rev.timestamp.month.toString().padLeft(2, '0')}.${rev.timestamp.day.toString().padLeft(2, '0')} "
+                            "${rev.timestamp.hour.toString().padLeft(2, '0')}:${rev.timestamp.minute.toString().padLeft(2, '0')}:${rev.timestamp.second.toString().padLeft(2, '0')}"
+                            ".${rev.timestamp.microsecond.toString().padLeft(6, '0')}",
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   },
@@ -88,7 +111,6 @@ class _ReviewPageState extends State<ReviewPage> {
                   final newReview = Review(
                     placeId: widget.placeId,
                     author: '익명',
-                    rating: 5,
                     content: value,
                     timestamp: DateTime.now(),
                   );
