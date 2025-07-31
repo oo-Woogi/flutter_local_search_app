@@ -35,7 +35,6 @@ class Review {
     );
   }
 
-  /// Converts a Review to JSON for Firestore
   Map<String, dynamic> toJson() {
     return {
       'placeId': placeId,
