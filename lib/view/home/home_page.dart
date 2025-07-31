@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../repository/location_repository.dart';
 import '../../model/location.dart';
+import '../../view/review/review_page.dart';
 
 class HomePageCard extends StatelessWidget {
   final String title;
@@ -105,10 +106,23 @@ class _HomePageState extends ConsumerState<HomePage> {
         itemCount: locations.length,
         itemBuilder: (context, index) {
           final place = locations[index];
-          return HomePageCard(
-            title: place.title,
-            category: place.category,
-            roadAddress: place.roadAddress,
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ReviewPage(
+                    placeId: place.title,
+                    placeTitle: place.title,
+                  ),
+                ),
+              );
+            },
+            child: HomePageCard(
+              title: place.title,
+              category: place.category,
+              roadAddress: place.roadAddress,
+            ),
           );
         },
       ),
