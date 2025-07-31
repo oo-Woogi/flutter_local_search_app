@@ -1,8 +1,58 @@
-
-
-
 import 'package:flutter/material.dart';
-import '../widget/place_card.dart';
+
+class PlaceCard extends StatelessWidget {
+  final String title;
+  final String category;
+  final String roadAddress;
+
+  const PlaceCard({
+    super.key,
+    required this.title,
+    required this.category,
+    required this.roadAddress,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            category,
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            roadAddress,
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -45,18 +95,27 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFFDF1F7),
       appBar: AppBar(
-        title: TextField(
-          controller: _searchController,
-          decoration: const InputDecoration(
-            hintText: '삼성동',
-            border: InputBorder.none,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.grey),
           ),
-          onSubmitted: (value) {
-            // TODO: 검색 기능 연결 예정
-          },
+          child: TextField(
+            controller: _searchController,
+            decoration: const InputDecoration(
+              hintText: '삼성동',
+              border: InputBorder.none,
+            ),
+            onSubmitted: (value) {
+              // 검색 기능 연결 예정
+            },
+          ),
         ),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16.0),
