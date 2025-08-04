@@ -66,6 +66,6 @@ lib/
 ## 주요 화면
 | 검색/리스트 화면 | 리뷰 화면 |
 |:---:|:---:|
-| ![](docs/Simulator 1.png) | ![](docs/Simulator 2.png) | ![](docs/Simulator 3.png) | | ![](docs/Simulator 4.png) | ![](docs/Simulator 5.png) | ![](docs/Simulator 6.png) |
+| ![](docs/Simulator1.png) | ![](docs/Simulator2.png) | ![](docs/Simulator3.png) | ![](docs/Simulator4.png) | ![](docs/Simulator5.png) | ![](docs/Simulator6.png) |
 
 ---------------------------------------------------------------------------------------------
