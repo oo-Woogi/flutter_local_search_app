@@ -4,6 +4,7 @@ import '../../repository/location_repository.dart';
 import '../../model/location.dart';
 import '../../view/review/review_page.dart';
 
+// 장소 정보를 보여주는 카드 위젯
 class HomePageCard extends StatelessWidget {
   final String title;
   final String category;
@@ -29,6 +30,7 @@ class HomePageCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // 장소명
           Text(
             title,
             style: const TextStyle(
@@ -37,6 +39,7 @@ class HomePageCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
+          // 카테고리
           Text(
             category,
             style: const TextStyle(
@@ -45,6 +48,7 @@ class HomePageCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
+          // 도로명 주소
           Text(
             roadAddress,
             style: const TextStyle(
@@ -58,6 +62,7 @@ class HomePageCard extends StatelessWidget {
   }
 }
 
+// 메인 홈화면 위젯 (검색 & 장소 목록)
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
@@ -76,6 +81,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // 현재 장소 목록 상태(Riverpod 사용)
     final locations = ref.watch(locationProvider);
 
     return Scaffold(
@@ -89,6 +95,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: Colors.grey),
           ),
+          // 검색 입력창
           child: TextField(
             controller: _searchController,
             decoration: const InputDecoration(
@@ -96,6 +103,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               border: InputBorder.none,
             ),
             onSubmitted: (value) {
+              // 엔터/검색 제출 시 검색 실행
               ref.read(locationProvider.notifier).search(value);
             },
           ),
@@ -108,6 +116,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           final place = locations[index];
           return GestureDetector(
             onTap: () {
+              // 리시트 항목 탭 시 리뷰 페이지로 이동
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -118,6 +127,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               );
             },
+            // 장소 정보 카드
             child: HomePageCard(
               title: place.title,
               category: place.category,

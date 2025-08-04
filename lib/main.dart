@@ -10,7 +10,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
-    ProviderScope(
+    ProviderScope( // Riverpod 상태관리 앱 전체에 적용
       child: MyApp(),
     ),
   );
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const HomePage(), // 앱 실행 시 보여줄 첫 장면
     );
   }
 }

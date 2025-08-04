@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../view_model/review_view_model.dart';
 import '../../model/review.dart';
 
+// 리뷰 페이지: 특정 장소에 대한 리뷰를 보여주고 작성할 수 있는 페이지
 class ReviewPage extends StatefulWidget {
   final String placeId;
   final String placeTitle;
@@ -39,12 +40,15 @@ class _ReviewPageState extends State<ReviewPage> {
         padding: const EdgeInsets.all(16.0),
         child: Consumer(
           builder: (context, ref, child) {
+            // 해당 장소의 리뷰 목록을 실시간으로 받아옴
             final reviewsAsync = ref.watch(reviewStreamProvider(widget.placeId));
             return reviewsAsync.when(
               data: (reviews) {
                 if (reviews.isEmpty) {
+                  // 리뷰가 없을 경우 안내 메시지 표시
                   return const Center(child: Text('등록된 리뷰가 없습니다.'));
                 }
+                // 리뷰가 있을 경우 리스트로 보여줌
                 return ListView.builder(
                   itemCount: reviews.length,
                   itemBuilder: (context, index) {
@@ -69,6 +73,7 @@ class _ReviewPageState extends State<ReviewPage> {
                             ),
                           ),
                           const SizedBox(height: 2),
+                          // 작성 일시(마이크로초까지 표기)
                           Text(
                             "${rev.timestamp.year}.${rev.timestamp.month.toString().padLeft(2, '0')}.${rev.timestamp.day.toString().padLeft(2, '0')} "
                             "${rev.timestamp.hour.toString().padLeft(2, '0')}:${rev.timestamp.minute.toString().padLeft(2, '0')}:${rev.timestamp.second.toString().padLeft(2, '0')}"
@@ -90,6 +95,7 @@ class _ReviewPageState extends State<ReviewPage> {
           },
         ),
       ),
+      // 리뷰 작성 입력창 (하단 고정)
       bottomNavigationBar: SafeArea(
         child: Consumer(
           builder: (context, ref, _) {
@@ -107,6 +113,7 @@ class _ReviewPageState extends State<ReviewPage> {
                   hintText: '리뷰를 입력하세요',
                   border: InputBorder.none,
                 ),
+                // 엔터 입력 시 리뷰 추가 및 입력창 비움
                 onSubmitted: (value) async {
                   final newReview = Review(
                     placeId: widget.placeId,
